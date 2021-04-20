@@ -7,11 +7,12 @@ from flask import Flask, abort, request
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import FollowEvent,MessageEvent, TextMessage, TextSendMessage
-
+from random import randint
 app = Flask(__name__)
 
 line_bot_api = LineBotApi(os.environ.get("CHANNEL_ACCESS_TOKEN"))
 handler = WebhookHandler(os.environ.get("CHANNEL_SECRET"))
+textRandom = ['[胺基酸多巴胺葡萄糖碇]','[來人!餵公子吃餅]','[這個我們下次再開一集視頻來解釋！]']
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -34,9 +35,9 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     get_message = event.message.text
-    get_userId = str(event)
+    get_userId = event.source.userId
     # Send To Line
-    reply = TextSendMessage(text=f"[CI360測試] {get_message} \n {get_userId}")
+    reply = TextSendMessage(text=f" {textRandom[randint(0,2)]} {get_message} \n {get_userId}")
     line_bot_api.reply_message(event.reply_token, reply)
 
 
