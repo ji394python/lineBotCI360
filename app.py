@@ -34,7 +34,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     get_message = event.message.text
-    get_userId = event.source.userId
+    get_userId = str(event)
     # Send To Line
     reply = TextSendMessage(text=f"[CI360測試] {get_message} \n {get_userId}")
     line_bot_api.reply_message(event.reply_token, reply)
