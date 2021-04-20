@@ -42,6 +42,7 @@ def handle_message(event):
 # 處理訊息:加入
 @handler.add(FollowEvent, message=TextMessage)
 def handle_message(event):
-    line_bot_api.reply_message(event.reply_token, "感謝加我為好友!!!")
+    reply = TextSendMessage(text=f"感謝加我為好友")
+    line_bot_api.reply_message(event.reply_token, reply)
 
 
