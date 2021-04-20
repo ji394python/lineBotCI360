@@ -24,7 +24,7 @@ def callback():
         body = request.get_data(as_text=True)
 
         try:
-            handler.handle(body, signature)
+            handler.handle(body, signature)  #官方拿來驗證linePlatform的訊息是否真的為linePlatform發來
         except InvalidSignatureError:
             abort(400)
 
@@ -38,3 +38,10 @@ def handle_message(event):
     # Send To Line
     reply = TextSendMessage(text=f"{get_message}")
     line_bot_api.reply_message(event.reply_token, reply)
+
+# 處理訊息:加入
+@handler.add(FollowEvent, message=TextMessage)
+def handle_message(event):
+    line_bot_api.reply_message(event.reply_token, "感謝加我為好友!!!")
+
+
