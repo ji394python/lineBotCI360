@@ -8,6 +8,11 @@ from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import FollowEvent,MessageEvent, TextMessage, TextSendMessage
 from random import randint
+import requests 
+from bs4 import BeautifulSoup
+import lxml
+
+
 app = Flask(__name__)
 
 line_bot_api = LineBotApi(os.environ.get("CHANNEL_ACCESS_TOKEN"))
@@ -36,8 +41,11 @@ def callback():
 def handle_message(event):
     get_message = event.message.text
     get_userId = event.source
+    r = requests.get('https://www.ptt.cc/bbs/Stock/index.html')
+    r = BeautifulSoup(r.text)
+    script = r.select('.title')[0].text.strip()
     # Send To Line
-    reply = TextSendMessage(text=f" {textRandom[randint(0,2)]} {get_message} \n {get_userId}")
+    reply = TextSendMessage(text=f" {textRandom[randint(0,2)]} \n {script} {get_message} \n {get_userId}")
     line_bot_api.reply_message(event.reply_token, reply)
 
 
