@@ -10,7 +10,6 @@ from linebot.models import FollowEvent,MessageEvent, TextMessage, TextSendMessag
 from random import randint
 import requests 
 from bs4 import BeautifulSoup
-import lxml
 
 
 app = Flask(__name__)
