@@ -46,7 +46,7 @@ def handle_message(event):
     # Send To Line
     reply = TextSendMessage(text=f" {textRandom[randint(0,2)]} \n {script} {get_message} \n {get_userId}")
     line_bot_api.reply_message(event.reply_token, reply)
-
+    line_bot_api.push_message('"U59c9b989be10bed54b972766530b9fb9', TextSendMessage(text='Hello World!'))
 
 @handler.add(FollowEvent)
 def handle_message(event):
